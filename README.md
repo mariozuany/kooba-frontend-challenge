@@ -4,7 +4,7 @@ Kooba Frontend Challenge
 You've made to the Kooba technical challenge... Nice one!
 
 > **Time limit**
-> Please spend no more than 3 hours at a maxmum on this task. If you don't get it finished within that time it's not a problem.
+Please spend no more than 3 hours at a maximum on this task. If you don't get it finished within that time it's not a problem.
 
 # The brief
 
