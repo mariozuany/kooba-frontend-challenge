@@ -23,13 +23,14 @@ Using HTML, CSS (SCSS preferably) and Javascript, we would like you to recreate 
 * Creativity - We would love to see your creativity shine: animations, microinteractions, general inventiveness. Go wild!
 * We would love to see ES6 used if you're writing Javascript
 
-When you're ready to deliver, you can run `npm run export`, and send the generated zip file to ronan.mccormack@kooba.ie
+When you're ready to deliver, please send your zipped source and compiled files to ronan.mccormack@kooba.ie, or alternatively push to a git repository you can share.
 
 If you have any questions about this assignment, feel free to get in touch with me: ronan.mccormack@kooba.ie
 
 ---
+
 ---
----
+
 # Kooba Frontend base project #
 You can use our base project by cloning this repo, although if you'd rather not, that's fine too.
 
@@ -46,7 +47,6 @@ For Live reloading, Browsersync has been used. For ES6 Transpilation, Babel has 
 
 - **Build the Project and Serve locally (for Development)** - `npm run dev` or `yarn run dev`. The Development port is `3000`. Build directory is `/dist`
 - **Build the Project and Serve locally (for Production)** - `npm start` or `yarn start`. The Production port is `8000`. Build directory is `/build`
-- **Exporting the Project to zip file** - `npm run export` or `yarn run export`
 
 ## Appendix
 
