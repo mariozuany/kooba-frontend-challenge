@@ -1,0 +1,23 @@
+/* COLOR DEFINITIONS */
+$charcoal: #111111;
+$razzmatazz: #F2226B;
+$jonquil: #F9CC67;
+
+/* GREYSCALE */
+$grey-light: #8E8E95;
+$grey-mid: #CCCCCC;
+$white: #FFFFFF;
+$black: #000000;
+
+/* COLOR SWATCHES */
+$primary: $razzmatazz;
+$secondary: $jonquil;
+
+/* COLOR ASSIGNMENTS */
+$color-background-primary: $white;
+$color-text: $charcoal;
+$color-link: $primary;
+$color-hover: $secondary;
+$color-placeholder: $grey-mid;
+$color-border: $razzmatazz;
+$color-disabled: $grey-light;

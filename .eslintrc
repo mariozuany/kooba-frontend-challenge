@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "indent": ["error", 4],
+    "no-console": "off",
+    "global-require": "off",
+    "comma-dangle": ["error", "never"]
+  },
+  "env": {
+    "browser": true
+  }
+}
