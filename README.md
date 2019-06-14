@@ -8,7 +8,7 @@ You've made to the Kooba technical challenge... Nice one!
 
 # The brief
 
-Using HTML, CSS (SCSS preferably) and Javascript, we would like you to create a slider component based on this design: https://drive.google.com/file/d/1TyEe1LjMjv_fp6m3j7d9MncZRaaJbgln/view?usp=sharing
+Using HTML, CSS (SCSS preferably) and Javascript, we would like you to recreate the following design, including a slider (carousel) element: https://drive.google.com/file/d/1TyEe1LjMjv_fp6m3j7d9MncZRaaJbgln/view?usp=sharing
 
 * The content should always fill the entire viewport. If the viewport size is too small to show everything, the page should scroll.
 * The slider should automatically progress to the next slide every 5 seconds. No manual slider control is needed.
