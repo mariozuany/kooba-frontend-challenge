@@ -79,15 +79,6 @@ blockquote {
     margin-bottom: $space * 2;
 }
 
-hr {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid $grey-mid;
-    height: 1px;
-    width: 100%;
-    margin: ($space * 2) 0;
-}
-
 strong {
     font-weight: $font-weight-bold;
 }

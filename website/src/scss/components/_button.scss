@@ -19,60 +19,12 @@ $button-icon-size: 12px;
     min-width: $button-min-width;
     font-size: 18px;
 
-    &__icon {
-        font-size: $button-icon-size;
-
-        &--large {
-            font-size: $button-icon-size * 2;
-        }
-    }
-
     &--primary {
         background-color: $primary;
         color: $white;
 
         &:hover {
             background-color: lighten($primary, 10%);
-        }
-    }
-
-    &--secondary {
-        background: transparent;
-        border: $button-border-width solid $secondary;
-        color: $secondary;
-
-        &:hover {
-            background: transparent;
-            border-color: lighten($secondary, 10%);
-        }
-    }
-
-    &--ghost {
-        background: transparent;
-        border: $button-border-width solid $white;
-        color: $white;
-
-        &:hover {
-            background: $white;
-            color: $color-text;
-        }
-    }
-
-    &--disabled {
-        background: $grey-mid;
-        color: $white;
-        cursor: default;
-    }
-
-    &--square {
-        background: $secondary;
-        color: $white;
-        width: $button-height * 2;
-        height: $button-height * 2;
-        font-size: $button-icon-size * 2;
-
-        &:hover {
-            background: darken($secondary, 10%);
         }
     }
 }
