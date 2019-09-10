@@ -32,6 +32,8 @@ If you have any questions about this assignment, feel free to get in touch with 
 ---
 
 # Kooba Frontend base project #
+You can use our base project by cloning this repo, although if you'd rather not, that's fine too.
+
 ## Gulp 4 + Webpack 4 + Babel + BrowserSync ##
 
 For Live reloading, Browsersync has been used. For ES6 Transpilation, Babel has been used. For SourceMaps, Gulp & Webpack both have been used. Sass/CSS Workflow.
