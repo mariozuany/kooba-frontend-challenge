@@ -4,12 +4,12 @@
 @import '../settings/colors';
 @import '../settings/spacing';
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
     margin-top: 0;
     line-height: $line-height-reduced;
     font-family: $font-heading;
@@ -19,7 +19,7 @@ h6 {
     letter-spacing: 0;
 }
 
-h1 {
+.h1 {
     font-size: 30px;
 
     @include breakpoint(tablet) {
@@ -31,7 +31,7 @@ h1 {
     }
 }
 
-h2 {
+.h2 {
     font-size: 24px;
 
     @include breakpoint(desktop) {
@@ -39,7 +39,7 @@ h2 {
     }
 }
 
-h3 {
+.h3 {
     font-size: 24px;
 
     @include breakpoint(desktop) {
@@ -47,7 +47,7 @@ h3 {
     }
 }
 
-h4 {
+.h4 {
     font-size: 22px;
 
     @include breakpoint(desktop) {
@@ -55,7 +55,7 @@ h4 {
     }
 }
 
-h5 {
+.h5 {
     font-size: 18px;
 
     @include breakpoint(desktop) {
@@ -63,7 +63,7 @@ h5 {
     }
 }
 
-h6 {
+.h6 {
     font-size: 16px;
 
     @include breakpoint(desktop) {
@@ -71,27 +71,36 @@ h6 {
     }
 }
 
-p,
-ul,
-ol,
-pre,
-blockquote {
+.p,
+.ul,
+.ol,
+.pre,
+.blockquote {
     margin-bottom: $space * 2;
 }
 
-strong {
+.hr {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $grey-mid;
+    height: 1px;
+    width: 100%;
+    margin: ($space * 2) 0;
+}
+
+.strong {
     font-weight: $font-weight-bold;
 }
 
-p {
+.em {
+    font-style: italic;
+}
+
+.p {
     font-family: $font-body;
     line-height: $line-height-standard;
 }
 
-ul li {
-    color: $color-text;
-}
-
-caption {
+.caption {
     font-size: 0.8rem;
 }

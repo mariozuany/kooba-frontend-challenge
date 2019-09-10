@@ -1,10 +1,9 @@
 {
-  "name": "gulp-website",
+  "name": "kooba-frontend-challenge",
   "version": "1.0.0",
-  "description": "Gulpish Website",
+  "description": "Kooba Frontend Challenge",
   "main": "index.js",
-  "author": "Harry Manchanda",
-  "license": "MIT",
+  "author": "Kooba",
   "scripts": {
     "start": "gulp",
     "dev": "gulp dev",
@@ -37,24 +36,29 @@
     "imagemin-pngquant": "^6.0.0",
     "imagemin-svgo": "^7.0.0",
     "install": "^0.12.2",
-    "npm": "^6.9.0",
+    "npm": "^6.10.1",
+    "postcss-object-fit-images": "^1.1.2",
     "postcss-preset-env": "^6.6.0",
     "pump": "^3.0.0",
-    "stylelint": "^10.0.1",
+    "stream-combiner": "^0.2.2",
+    "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.6.1",
     "stylelint-selector-bem-pattern": "^2.1.0",
     "through2": "^2.0.3",
     "uncss": "^0.16.2",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
     "airbnb-browser-shims": "^3.2.1",
     "animejs": "^3.0.1",
     "intersection-observer": "^0.7.0",
-    "scrollama": "^2.0.0"
+    "jquery": "^3.4.1",
+    "object-fit-images": "^3.2.4",
+    "scrollama": "^2.0.0",
+    "slick-carousel": "^1.8.1"
   }
 }

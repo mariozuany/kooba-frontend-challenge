@@ -1,6 +1,7 @@
 // Node Packages
 const gulp = require('gulp');
 const pump = require('pump');
+const streamCombiner = require('stream-combiner');
 const del = require('del');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
@@ -12,6 +13,7 @@ const gulpUglify = require('gulp-uglify');
 const gulpSourcemaps = require('gulp-sourcemaps');
 const gulpPostcss = require('gulp-postcss');
 const postcssPresetEnv = require('postcss-preset-env');
+const postcssObjectFitImages = require('postcss-object-fit-images');
 const gulpSass = require('gulp-sass');
 const gulpStylelint = require('gulp-stylelint');
 const gulpBabel = require('gulp-babel');
@@ -32,6 +34,9 @@ const postcssPresetEnvConfig = {
     autoprefixer: { cascade: false }
 };
 
+// Should generate into EE directory
+const hasEE = false;
+
 // Paths for reuse
 const exportPath = './website/dist/**/*';
 const srcPath = (file, watch = false) => {
@@ -39,8 +44,11 @@ const srcPath = (file, watch = false) => {
     if (file === 'scss' && watch === true) return './website/src/scss/**/*.scss';
     if (file === 'js' && watch === false) return entryArray;
     if (file === 'js' && watch === true) return './website/src/js/**/*.js';
-    if (file === 'html') return './website/src/**/*.html';
+    if (file === 'html' && watch === true) return './website/src/**/*.html';
+    if (file === 'html' && watch === false) return './website/src/*.html';
+    if (file === 'fonts') return './website/src/fonts/**/*.*';
     if (file === 'img') return './website/src/img/**/*.{png,jpeg,jpg,svg,gif}';
+    if (file === 'video') return './website/src/video/**/*.{mp4,ogv,webm}';
     console.error('Unsupported file type entered into Gulp Task Runner for Source Path');
     return null;
 };
@@ -49,23 +57,30 @@ const srcPath = (file, watch = false) => {
 const distPath = (file, mode = 'development', serve = false) => {
     const directory = mode === 'production' ? 'build' : 'dist';
 
-    if (['css', 'js', 'img'].includes(file)) return `./website/${directory}/${file}`;
-    if (file === 'html' && serve === false) return `./website/${directory}/**/*.html`;
-    if (file === 'html' && serve === true) return `./website/${directory}`;
+    if (['css', 'js', 'img', 'fonts', 'video'].includes(file)) {
+        return [
+            `./website/${directory}/${file}`,
+            ...(hasEE && mode === 'production' ? [`../EE/${file}`] : [])
+        ];
+    }
+    if (file === 'html' && serve === false) return [`./website/${directory}/**/*.html`];
+    if (file === 'html' && serve === true) return [`./website/${directory}`];
 
     console.error('Unsupported file type entered into Gulp Task Runner for Dist Path');
 
     return null;
 };
 
-/**
- * Cleaning Tasks
- */
+function dest(paths) {
+    return streamCombiner(paths.map(path => gulp.dest(path)));
+}
+
+/* Cleaning Tasks */
 
 // Clean Markup Task
 const cleanMarkup = mode => () => {
     if (['development', 'production'].includes(mode)) {
-        return del([distPath('html', mode)]);
+        return del(distPath('html', mode), { force: true });
     }
 
     return undefined;
@@ -74,7 +89,16 @@ const cleanMarkup = mode => () => {
 // Clean Images Task
 const cleanImages = mode => () => {
     if (['development', 'production'].includes(mode)) {
-        return del([distPath('img', mode)]);
+        return del(distPath('img', mode), { force: true });
+    }
+
+    return undefined;
+};
+
+// Clean Video Task
+const cleanVideo = mode => () => {
+    if (['development', 'production'].includes(mode)) {
+        return del(distPath('video', mode), { force: true });
     }
 
     return undefined;
@@ -83,7 +107,7 @@ const cleanImages = mode => () => {
 // Clean Styles Task
 const cleanStyles = mode => () => {
     if (['development', 'production'].includes(mode)) {
-        return del([distPath('css', mode)]);
+        return del(distPath('css', mode), { force: true });
     }
 
     return undefined;
@@ -92,7 +116,16 @@ const cleanStyles = mode => () => {
 // Clean Scripts Task
 const cleanScripts = mode => () => {
     if (['development', 'production'].includes(mode)) {
-        return del([distPath('js', mode)]);
+        return del(distPath('js', mode), { force: true });
+    }
+
+    return undefined;
+};
+
+// Clean Fonts Task
+const cleanFonts = mode => () => {
+    if (['development', 'production'].includes(mode)) {
+        return del(distPath('fonts', mode), { force: true });
     }
 
     return undefined;
@@ -101,28 +134,26 @@ const cleanScripts = mode => () => {
 // Clean the zip file
 const cleanExport = mode => () => {
     if (['development', 'production'].includes(mode)) {
-        return del(['./website.zip']);
+        return del(['./website.zip'], { force: true });
     }
 
     return undefined;
 };
 
-/**
- * Building Tasks
- */
+/* Building Tasks */
 
 // Build Markup Tasks
 const buildMarkup = mode => (done) => {
     if (['development', 'production'].includes(mode)) {
         return pump([
-            gulp.src(srcPath('html')),
+            gulp.src(srcPath('html', false)),
             fileinclude({
                 prefix: '@@',
                 basepath: '@file',
                 indent: 'true'
             }),
             ...((mode === 'production') ? [inlineImagesize()] : []),
-            gulp.dest(distPath('html', mode, true)),
+            dest(distPath('html', mode, true)),
             browserSync.stream()
         ], done);
     }
@@ -135,15 +166,32 @@ const buildImages = mode => (done) => {
     if (['development', 'production'].includes(mode)) {
         return pump([
             gulp.src(srcPath('img')),
-            gulpImagemin([
-                gulpImagemin.gifsicle(),
-                gulpImagemin.jpegtran(),
-                gulpImagemin.optipng(),
-                gulpImagemin.svgo(),
-                imageminPngquant(),
-                imageminJpegRecompress()
-            ]),
-            gulp.dest(distPath('img', mode)),
+            ...(
+                (mode === 'production') ? [
+                    gulpImagemin([
+                        gulpImagemin.gifsicle(),
+                        gulpImagemin.jpegtran(),
+                        gulpImagemin.optipng(),
+                        gulpImagemin.svgo(),
+                        imageminPngquant(),
+                        imageminJpegRecompress()
+                    ])
+                ] : []
+            ),
+            dest(distPath('img', mode)),
+            browserSync.stream()
+        ], done);
+    }
+
+    return undefined;
+};
+
+// Build Video Task
+const buildVideo = mode => (done) => {
+    if (['development', 'production'].includes(mode)) {
+        return pump([
+            gulp.src(srcPath('video')),
+            dest(distPath('video', mode)),
             browserSync.stream()
         ], done);
     }
@@ -159,17 +207,26 @@ const buildStyles = mode => (done) => {
     else outputStyle = undefined;
 
     const postcssPlugins = [
-        postcssPresetEnv(postcssPresetEnvConfig)
+        postcssPresetEnv(postcssPresetEnvConfig),
+        postcssObjectFitImages
     ];
 
     if (['development', 'production'].includes(mode)) {
         return pump([
             gulp.src(srcPath('scss')),
-            gulpSourcemaps.init({ loadMaps: true }),
+            ...(
+                (mode !== 'production') ? [
+                    gulpSourcemaps.init({ loadMaps: true })
+                ] : []
+            ),
             gulpSass({ outputStyle }),
             gulpPostcss(postcssPlugins),
-            gulpSourcemaps.write('./'),
-            gulp.dest(distPath('css', mode)),
+            ...(
+                (mode !== 'production') ? [
+                    gulpSourcemaps.write('./')
+                ] : []
+            ),
+            dest(distPath('css', mode)),
             browserSync.stream()
         ], done);
     }
@@ -187,10 +244,8 @@ const lintStyles = mode => (done) => {
                     { formatter: 'string', console: true }
                 ],
                 debug: true
-            }),
-        ], done, (err) => {
-            console.log('pipe finished', err);
-        });
+            })
+        ], done);
     }
 
     return undefined;
@@ -208,7 +263,11 @@ const buildScripts = mode => (done) => {
             gulp.src(srcPath('js')),
             vinylNamed(),
             webpackStream(streamMode, webpack),
-            gulpSourcemaps.init({ loadMaps: true }),
+            ...(
+                (mode !== 'production') ? [
+                    gulpSourcemaps.init({ loadMaps: true })
+                ] : []
+            ),
             through2.obj(function (file, enc, cb) {
                 const isSourceMap = /\.map$/.test(file.path);
                 if (!isSourceMap) this.push(file);
@@ -216,8 +275,12 @@ const buildScripts = mode => (done) => {
             }),
             gulpBabel({ presets: ['@babel/preset-env'] }),
             ...((mode === 'production') ? [gulpUglify()] : []),
-            gulpSourcemaps.write('./'),
-            gulp.dest(distPath('js', mode)),
+            ...(
+                (mode !== 'production') ? [
+                    gulpSourcemaps.write('./')
+                ] : []
+            ),
+            dest(distPath('js', mode)),
             browserSync.stream()
         ], done);
     }
@@ -225,9 +288,20 @@ const buildScripts = mode => (done) => {
     return undefined;
 };
 
-/**
- * Generic Task for all Main Gulp Build/Export Tasks
- */
+// Build Scripts Task
+const buildFonts = mode => (done) => {
+    if (['development', 'production'].includes(mode)) {
+        return pump([
+            gulp.src(srcPath('fonts')),
+            dest(distPath('fonts', mode)),
+            browserSync.stream()
+        ], done);
+    }
+
+    return undefined;
+};
+
+/* Generic Task for all Main Gulp Build/Export Tasks */
 
 // Generic Task
 const genericTask = (mode, context = 'building') => {
@@ -251,11 +325,15 @@ const genericTask = (mode, context = 'building') => {
         Object.assign(buildMarkup(mode), { displayName: `Booting Markup Task: Build - ${modeName}` }),
         Object.assign(cleanImages(mode), { displayName: `Booting Images Task: Clean - ${modeName}` }),
         Object.assign(buildImages(mode), { displayName: `Booting Images Task: Build - ${modeName}` }),
+        Object.assign(cleanVideo(mode), { displayName: `Booting Video Task: Clean - ${modeName}` }),
+        Object.assign(buildVideo(mode), { displayName: `Booting Video Task: Build - ${modeName}` }),
         Object.assign(cleanScripts(mode), { displayName: `Booting Scripts Task: Clean - ${modeName}` }),
         Object.assign(buildScripts(mode), { displayName: `Booting Scripts Task: Build - ${modeName}` }),
         Object.assign(cleanStyles(mode), { displayName: `Booting Styles Task: Clean - ${modeName}` }),
         Object.assign(lintStyles(mode), { displayName: `Booting Styles Task: Lint - ${modeName}` }),
         Object.assign(buildStyles(mode), { displayName: `Booting Styles Task: Build - ${modeName}` }),
+        Object.assign(cleanFonts(mode), { displayName: `Booting Fonts Task: Clean - ${modeName}` }),
+        Object.assign(buildFonts(mode), { displayName: `Booting Fonts Task: Build - ${modeName}` })
     ];
 
     // Browser Loading & Watching
@@ -263,14 +341,14 @@ const genericTask = (mode, context = 'building') => {
         browserSync.init({
             port,
             directory: true,
-            server: distPath('html', mode, true)
+            server: distPath('html', mode, true)[0]
         });
 
         // Watch - Markup
-        gulp.watch(srcPath('html'), true)
+        gulp.watch(srcPath('html', true), true)
             .on('all', gulp.series(
                 Object.assign(cleanMarkup(mode), { displayName: `Watching Markup Task: Clean - ${modeName}` }),
-                Object.assign(buildMarkup(mode), { displayName: `Watching Markup Task: Build - ${modeName}` }),
+                Object.assign(buildMarkup(mode), { displayName: `Watching Markup Task: Build - ${modeName}` })
             ), browserSync.reload);
         done();
 
@@ -278,14 +356,21 @@ const genericTask = (mode, context = 'building') => {
         gulp.watch(srcPath('img', true))
             .on('all', gulp.series(
                 Object.assign(cleanImages(mode), { displayName: `Watching Images Task: Clean - ${modeName}` }),
-                Object.assign(buildImages(mode), { displayName: `Watching Images Task: Build - ${modeName}` }),
+                Object.assign(buildImages(mode), { displayName: `Watching Images Task: Build - ${modeName}` })
+            ), browserSync.reload);
+
+        // Watch - Video
+        gulp.watch(srcPath('video', true))
+            .on('all', gulp.series(
+                Object.assign(cleanVideo(mode), { displayName: `Watching Video Task: Clean - ${modeName}` }),
+                Object.assign(buildVideo(mode), { displayName: `Watching Video Task: Build - ${modeName}` })
             ), browserSync.reload);
 
         // Watch - Scripts
         gulp.watch(srcPath('js', true))
             .on('all', gulp.series(
                 // Object.assign(cleanScripts(mode), { displayName: `Watching Scripts Task: Clean - ${modeName}` }),
-                Object.assign(buildScripts(mode), { displayName: `Watching Scripts Task: Build - ${modeName}` }),
+                Object.assign(buildScripts(mode), { displayName: `Watching Scripts Task: Build - ${modeName}` })
             ), browserSync.reload);
 
         // Watch - Styles
@@ -293,7 +378,14 @@ const genericTask = (mode, context = 'building') => {
             .on('all', gulp.series(
                 Object.assign(cleanStyles(mode), { displayName: `Watching Styles Task: Clean - ${modeName}` }),
                 Object.assign(lintStyles(mode), { displayName: `Watching Styles Task: Lint - ${modeName}` }),
-                Object.assign(buildStyles(mode), { displayName: `Watching Styles Task: Build - ${modeName}` }),
+                Object.assign(buildStyles(mode), { displayName: `Watching Styles Task: Build - ${modeName}` })
+            ), browserSync.reload);
+
+        // Watch - Fonts
+        gulp.watch(srcPath('fonts', true))
+            .on('all', gulp.series(
+                Object.assign(cleanFonts(mode), { displayName: `Watching Fonts Task: Clean - ${modeName}` }),
+                Object.assign(buildFonts(mode), { displayName: `Watching Fonts Task: Build - ${modeName}` })
             ), browserSync.reload);
     };
 

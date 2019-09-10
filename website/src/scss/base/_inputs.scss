@@ -1,4 +1,4 @@
-input {
+.input {
     -webkit-appearance: none;        // removing inner shadow on iOS inputs
     -webkit-font-smoothing: inherit;
     background: none;
@@ -18,22 +18,22 @@ input {
     }
 }
 
-input[type="search"] {
+.input[type="search"] {
     -webkit-appearance: textfield;
 }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button {
+.input[type="search"]::-webkit-search-decoration,
+.input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
 
 /* IE select reset */
-select::-ms-expand {
+.select::-ms-expand {
     display: none;
 }
 
 /* FF remove outline from select */
-select:-moz-focusring {
+.select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000000;
 }

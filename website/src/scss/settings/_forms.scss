@@ -20,18 +20,18 @@ $form-input-font-size: 14px;
 // Input Borders
 $form-input-border-static: 1px solid $color-text;
 $form-input-border-focus: 1px solid $secondary;
-$form-input-border-disabled: 1px solid $color-disabled;
-$form-input-border-error: 1px solid $color-error;
+$form-input-border-disabled: 1px solid $grey-mid;
+$form-input-border-error: 1px solid $form-input-color-error;
 
 // Input Iconography
 $form-input-icon-color-static: $secondary;
 $form-input-icon-color-focus: $secondary;
-$form-input-icon-color-disabled: $color-disabled;
-$form-input-icon-color-error: $color-error;
+$form-input-icon-color-disabled: $grey-mid;
+$form-input-icon-color-error: $form-input-color-error;
 $form-input-icon-size: $space * 1.5;
 
 // Input Placeholders
-$form-input-placeholder-color: $color-disabled;
+$form-input-placeholder-color: $grey-mid;
 $form-input-placeholder-size: 12px;
 $form-input-icon-size: $space * 1.5;
 

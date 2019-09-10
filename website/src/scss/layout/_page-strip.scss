@@ -1,0 +1,15 @@
+@import '../settings/colors';
+@import '../settings/spacing';
+@import '../settings/z-index';
+@import '../utils/breakpoints';
+
+.page-strip {
+    width: 100%;
+    position: relative;
+    padding: ($space * 4) 0;
+    z-index: $z-base;
+
+    @include breakpoint(tablet) {
+        padding: ($space * 8) 0;
+    }
+}
