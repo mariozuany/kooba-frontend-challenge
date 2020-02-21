@@ -4,7 +4,7 @@ Kooba Frontend Challenge
 You've made to the Kooba technical challenge... Nice one!
 
 # Time limit
-Please spend no more than 3 hours at a maximum on this task. If you don't get it finished within that time it's not a problem.
+Please spend no more than 3-4 hours at a maximum on this task. If you don't get it finished within that time it's not a problem.
 
 # The brief
 
@@ -53,6 +53,7 @@ For Live reloading, Browsersync has been used. For ES6 Transpilation, Babel has 
 
 - **Build the Project and Serve locally (for Development)** - `npm run dev` or `yarn run dev`. The Development port is `3000`. Build directory is `/dist`
 - **Build the Project and Serve locally (for Production)** - `npm start` or `yarn start`. The Production port is `8000`. Build directory is `/build`
+- **Build the Project Only (for Production)** - `npm run build` or `yarn run build`. Build directory is `/build`
 - **Exporting the Project to zip file** - `npm run export` or `yarn run export`
 
 Important Note: **Don't** run these npm scripts simultaneously.

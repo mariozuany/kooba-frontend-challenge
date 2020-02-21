@@ -1,0 +1,32 @@
+@import "../settings/colors";
+
+.skin {
+    background: $color-background-secondary;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    &__link {
+        color: $black;
+    }
+
+    &__colour {
+        background-clip: content-box;
+        width: 100px;
+        height: 100px;
+        display: block;
+        border: 1px solid $black;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    &__background {
+        display: inline-flex;
+        padding: 5px;
+
+        &--dark {
+            background: $black;
+        }
+    }
+}

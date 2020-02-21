@@ -1,2 +1,3 @@
-import './polyfills/forEach';
-import 'airbnb-browser-shims';
+import polyfills from './polyfills';
+
+polyfills();

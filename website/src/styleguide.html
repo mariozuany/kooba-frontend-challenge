@@ -1,0 +1,53 @@
+<!-- include "meta-head.html" -->
+@@include('includes/partials/meta-head.html')
+
+<body>
+<!-- include "partial-header.html" -->
+@@include('includes/partials/partial-header.html')
+
+<main>
+	<div class="wrapper wrapper--wrap">
+		<div class="skin">
+			<a class="skin__link" href="homepage.html">< Back to Home</a>
+		</div>
+
+		<div class="skin">
+			Typography
+		</div>
+
+		@@include('includes/styleguide/partial-typography.html')
+
+		<div class="skin">
+			Colours
+		</div>
+
+		@@include('includes/styleguide/partial-colours.html')
+
+		<div class="skin">
+			Buttons
+		</div>
+
+		@@include('includes/styleguide/partial-buttons.html')
+
+		<div class="skin">
+			Icons (Fonts)
+		</div>
+
+		<ul>
+			@@loop('includes/styleguide/partial-icons.html', 'icons/icon-list.json')
+		</ul>
+
+		<div class="Inputs">
+			Inputs
+		</div>
+
+		@@include('includes/styleguide/partial-inputs.html')
+	</div>
+</main>
+
+@@include('includes/partials/partial-footer.html')
+
+@@include('includes/partials/meta-foot.html')
+
+</body>
+</html>

@@ -6,15 +6,18 @@ $jonquil: #F9CC67;
 /* GREYSCALE */
 $grey-light: #8E8E95;
 $grey-mid: #CCCCCC;
+$off-white: #F7F7F7;
 $white: #FFFFFF;
 $black: #000000;
 
 /* COLOR SWATCHES */
 $primary: $razzmatazz;
 $secondary: $jonquil;
+$tertiary: $charcoal;
 
 /* COLOR ASSIGNMENTS */
 $color-background-primary: $white;
+$color-background-secondary: $off-white;
 $color-text: $charcoal;
 $color-link: $primary;
 $color-hover: $secondary;
