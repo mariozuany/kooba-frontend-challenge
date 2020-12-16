@@ -6,6 +6,12 @@ You've made to the Kooba technical challenge... Nice one!
 # Time limit
 Please spend no more than 3-4 hours at a maximum on this task. If you don't get it finished within that time it's not a problem.
 
+# Before you start
+* Read through the brief below in detail and download the Sketch file below to check out the design. 
+* Estimate how much time would be needed to complete the challenge. As mentioned above, if you don't think it's achievable within 3-4 hours above, that's fine.
+* Make some notes about your planned approach to the task.
+* Share your estimation and planned approach with me by email (ronan.mccormack@kooba.ie) before you start coding.
+
 # The brief
 
 Using HTML, CSS (SCSS preferably) and Javascript, we would like you to recreate the following design, including a slider (carousel) element: https://drive.google.com/file/d/1TyEe1LjMjv_fp6m3j7d9MncZRaaJbgln/view?usp=sharing
@@ -20,8 +26,10 @@ Using HTML, CSS (SCSS preferably) and Javascript, we would like you to recreate 
 * We're looking for solid use of code style best practices
 * Use any packages or libraries you like for slider functionality or write the code yourself. Whatever you choose, make sure it's something you are comfortable with.
 * Whatever you build should work properly in the latest versions of Chrome, Firefox and Safari. IE is not important here (Hooray!)
-* Creativity - We would love to see your creativity shine: animations, microinteractions, general inventiveness. Go wild!
-* We would love to see ES6 used if you're writing Javascript
+* Creativity - We would love to see your creativity shine: animations, micro-interactions, general inventiveness. Go wild!
+* Keep performance and accessibility in mind.
+* We would love to see Javascript used (no jQuery please), with ES6+ where appropriate.
+* Please avoid using any styling frameworks (Bootstrap, Tailwind etc.) 
 
 When you're ready to deliver, please send your zipped source and compiled files to ronan.mccormack@kooba.ie, or alternatively push to a git repository you can share.
 
