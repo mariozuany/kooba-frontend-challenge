@@ -1,11 +1,10 @@
-@import '../utils/grid-debugger';
+// @import '../utils/grid-debugger';
 @import '../settings/columns';
 body {
     background-image: url(../img/background.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: 'Roboto', sans-serif;
     height: 100vh;
     width: 100vw;
     &::before {
@@ -38,7 +37,7 @@ body {
         display: flex;
     }
     &--logo {
-        fill: #fff;
+        height: 50px;
     }
 }
 
@@ -160,9 +159,6 @@ body {
         width: 100%;
     }
 }
-
-
-/* ANIMATION */
 
 @keyframes loaderline {
     0% {

@@ -5,38 +5,16 @@
     <!-- include "partial-header.html" -->
     @@include('includes/partials/partial-header.html')
 
-    <section class="grid-viwer desktop">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </section>
-
-    <section class="grid-viwer mobile">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </section>
+    <!-- include "grid-debugger.html" -->
+    <!-- @@include('includes/partials/grid-debugger.html') -->
 
     <header class="grid-container">
         <a class="brand" href="#">
-            <img class="brand--logo" src="./img/logo-kooba.svg" alt="Kooba's Logo">
+            @@include('includes/partials/logo-kooba.svg')
         </a>
     </header>
 
-    <div class="grid-container">
-
+    <main class="grid-container">
         <div class="page--content">
             <section class="page--headline">
                 <h1 class="page--tagline">Hello frontender</h1>
@@ -46,68 +24,56 @@
             <div class="article-list--container">
                 <section class="article-list transition">
 
-                    <article class="article active">
+                    <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-01.jpg" alt="Image that ilustrates first article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Awards 2018</h2>
-                            <p class="article--excerpt">Take note of the timer progress bar above on the first active slider.
-                            </p>
-                        </div>
+                        <h2 class="article--title">Awards 2018</h2>
+                        <p class="article--excerpt">Take note of the timer progress bar above on the first active slider.
+                        </p>
                     </article>
                     <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-02.jpg" alt="Image that ilustrates second article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Sponsored Event</h2>
-                            <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
-                        </div>
+                        <h2 class="article--title">Sponsored Event</h2>
+                        <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
                     </article>
                     <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-03.jpg" alt="Image that ilustrates third article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Latest Vacancies</h2>
-                            <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
-                        </div>
+                        <h2 class="article--title">Latest Vacancies</h2>
+                        <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
                     </article>
 
                     <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-01.jpg" alt="Image that ilustrates first article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Awards 2018</h2>
-                            <p class="article--excerpt">Take note of the timer progress bar above on the first active slider.
-                            </p>
-                        </div>
+                        <h2 class="article--title">Awards 2018</h2>
+                        <p class="article--excerpt">Take note of the timer progress bar above on the first active slider.
+                        </p>
                     </article>
                     <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-02.jpg" alt="Image that ilustrates second article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Sponsored Event</h2>
-                            <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
-                        </div>
+                        <h2 class="article--title">Sponsored Event</h2>
+                        <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
                     </article>
                     <article class="article">
                         <div class="image-container">
                             <img src="./img/image-article-03.jpg" alt="Image that ilustrates third article.">
                         </div>
-                        <div class="article-text-content">
-                            <h2 class="article--title">Latest Vacancies</h2>
-                            <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
-                        </div>
+                        <h2 class="article--title">Latest Vacancies</h2>
+                        <p class="article--excerpt">Duis aute irure dolor in reprehenderit in voluptate velit.</p>
                     </article>
 
                 </section>
             </div>
         </div>
-    </div>
+    </main>
 
 
     @@include('includes/partials/partial-footer.html') @@include('includes/partials/meta-foot.html')
