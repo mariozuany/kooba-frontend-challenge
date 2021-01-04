@@ -1,69 +1,5 @@
-:root {
-    --color-black: #000;
-    --color-white: #fff;
-    --color-dark: #68c8e6;
-    --brand-green: #3EAA82;
-    --animation-speed: 3s;
-    --animation-loop: infinite;
-}
-
-
-/*  DEBUG HELPERS  */
-
-.grid-viwer {
-    position: fixed;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    left: 0;
-    right: 0;
-    opacity: 0.3;
-    top: 0;
-    height: 100vh;
-    z-index: -1;
-    justify-content: space-between;
-    max-width: 90%;
-}
-
-.desktop {
-    display: none;
-}
-
-.mobile {
-    display: flex;
-}
-
-.col {
-    background-color: #b3b3b3;
-    display: flex;
-    height: 100vh;
-    width: calc(42rem / 19);
-}
-
-
-/* GRID */
-
-.grid-container {
-    max-width: 90%;
-    margin: 0 auto;
-    display: flex;
-}
-
-.w-3-12 {
-    width: 100%;
-}
-
-.w-6-12 {
-    width: 100%;
-}
-
-.w-9-12 {
-    width: 100%;
-}
-
-
-/* LAYOUT */
-
+@import '../utils/grid-debugger';
+@import '../settings/columns';
 body {
     background-image: url(../img/background.jpg);
     background-attachment: fixed;
@@ -84,26 +20,62 @@ body {
     }
 }
 
+.grid-container {
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+    @include breakpoint(desktop) {
+        max-width: 960px;
+    }
+}
+
 .brand {
     width: 100%;
     margin: 16px 0;
+    @include breakpoint(desktop) {
+        width: $desktop-3-12-col;
+        margin: 64px 0 32px;
+        display: flex;
+    }
     &--logo {
         fill: #fff;
     }
 }
 
-.page--content {
-    display: flex;
-    flex-direction: column;
-    margin-left: 0;
-    width: 100%;
-}
-
-.page--headline {
-    display: flex;
-    flex-direction: column;
-    margin: 32px 0;
-    width: 100%;
+.page {
+    &--content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+        @include breakpoint(desktop) {
+            width: $desktop-9-12-col;
+            margin-left: calc(45rem / 12 * 4.105);
+        }
+    }
+    &--headline {
+        display: flex;
+        flex-direction: column;
+        margin: 32px 0;
+        width: 100%;
+        @include breakpoint(desktop) {
+            width: $desktop-6-12-col;
+        }
+    }
+    &--tagline {
+        color: $white;
+        font-size: 55px;
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 64px;
+        margin: 0 0 16px 0;
+    }
+    &--introduction {
+        color: $white;
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 23px;
+    }
 }
 
 .article-list--container {
@@ -111,6 +83,12 @@ body {
     height: 420px;
     overflow: hidden;
     position: relative;
+    @include breakpoint(desktop) {
+        width: 100%;
+        height: 370px;
+        overflow: hidden;
+        position: relative;
+    }
 }
 
 .article-list {
@@ -118,15 +96,56 @@ body {
     position: absolute;
     overflow: hidden;
     height: 420px;
-}
-
-.article-list.transition {
-    transition: transform 500ms ease-in-out;
+    @include breakpoint(desktop) {
+        position: absolute;
+        justify-content: flex-start;
+    }
+    &.transition {
+        transition: transform $easing-standard;
+    }
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
     .article-list.transition {
         transition: none;
+    }
+}
+
+.article {
+    display: flex;
+    width: calc(45rem / 6 * 2.6999);
+    flex-direction: column;
+    @include breakpoint(desktop) {
+        width: $desktop-3-12-col;
+        margin: 0 24px 0 0;
+    }
+    &.active .image-container::after {
+        animation: loaderline linear $speed-standard infinite;
+        width: 100%;
+        height: 2px;
+        background: $green-dark;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        content: '';
+    }
+    &:hover .image-container::after {
+        animation-play-state: paused;
+    }
+    &--title {
+        color: $white;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0.6px;
+        line-height: 21px;
+        margin: 0 0 9px 0;
+    }
+    &--excerpt {
+        color: $white;
+        font-size: 13px;
+        letter-spacing: 0.43px;
+        line-height: 20px;
     }
 }
 
@@ -142,63 +161,6 @@ body {
     }
 }
 
-.article:first-child .image-container::after {
-    animation: loaderline linear var(--animation-speed) var(--animation-loop);
-    width: 100%;
-    height: 2px;
-    background: var(--brand-green);
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    content: '';
-}
-
-.article:hover .image-container::after {
-    animation-play-state: paused;
-}
-
-
-/* TYPOGRAPHY */
-
-.page {
-    &--tagline {
-        color: #FFFFFF;
-        font-size: 55px;
-        font-weight: bold;
-        letter-spacing: 0;
-        line-height: 64px;
-        margin: 0 0 16px 0;
-    }
-    &--introduction {
-        color: #FFFFFF;
-        font-size: 16px;
-        letter-spacing: 0.53px;
-        line-height: 23px;
-    }
-}
-
-.article {
-    transition: all ease 500ms;
-    display: flex;
-    flex: 0 0 calc(45rem / 6 * 2.6999);
-    flex-direction: column;
-    &--title {
-        color: #FFFFFF;
-        font-size: 18px;
-        font-weight: bold;
-        letter-spacing: 0.6px;
-        line-height: 21px;
-        margin: 0 0 9px 0;
-    }
-    &--excerpt {
-        color: #FFFFFF;
-        font-size: 13px;
-        letter-spacing: 0.43px;
-        line-height: 20px;
-    }
-}
-
 
 /* ANIMATION */
 
@@ -208,64 +170,5 @@ body {
     }
     100% {
         width: 100%;
-    }
-}
-
-// DESKTOP
-@media only screen and (min-width: 960px) {
-    .desktop {
-        display: flex;
-    }
-    .mobile {
-        display: none;
-    }
-    .grid-viwer {
-        width: 960px;
-    }
-    .col {
-        width: calc(45rem / 12);
-    }
-    .grid-container {
-        max-width: 960px;
-    }
-    .brand {
-        margin: 64px 0 32px;
-        display: flex;
-        width: calc(45rem / 12 * 3.6985);
-    }
-    .article {
-        flex: 0 0 calc(45rem / 12 * 3.6985);
-    }
-    .w-3-12 {
-        display: flex;
-        width: calc(45rem / 12 * 3.6985);
-    }
-    .w-6-12 {
-        width: calc(45rem / 12 * 7.82);
-    }
-    .w-9-12 {
-        width: calc(45rem / 12 * 11.895);
-    }
-    .page--content {
-        margin-left: calc(45rem / 12 * 4.105);
-        width: calc(45rem / 12 * 11.895);
-    }
-    .page--headline {
-        width: calc(45rem / 12 * 7.82);
-    }
-    .article-list--container {
-        width: 100%;
-        height: 370px;
-        overflow: hidden;
-        position: relative;
-    }
-    .article-list {
-        display: flex;
-        position: absolute;
-        width: 10000px;
-        justify-content: flex-start;
-    }
-    .article {
-        margin: 0 24px 0 0;
     }
 }
