@@ -1,0 +1,38 @@
+/*  DEBUG HELPERS  */
+
+.grid-viwer {
+    position: fixed;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    left: 0;
+    right: 0;
+    opacity: 0.3;
+    top: 0;
+    height: 100vh;
+    z-index: -1;
+    justify-content: space-between;
+    max-width: 90%;
+}
+
+.col {
+    background-color: #b3b3b3;
+    display: flex;
+    height: 100vh;
+    width: calc(18rem / 6);
+}
+
+@media only screen and (min-width: 960px) {
+    .desktop {
+        display: flex;
+    }
+    .mobile {
+        display: none;
+    }
+    .grid-viwer {
+        width: 960px;
+    }
+    .col {
+        width: calc(45rem / 12);
+    }
+}
